@@ -3,12 +3,6 @@
 mod lib3h_simchat;
 mod simchat;
 
-extern crate chrono;
-extern crate colored;
-extern crate linefeed;
-extern crate regex;
-extern crate url;
-
 use crate::simchat::{ChatEvent, SimChat, SimChatMessage};
 use chrono::prelude::DateTime;
 use colored::*;
@@ -20,6 +14,7 @@ use lib3h_sodium::SodiumCryptoSystem;
 use regex::Regex;
 use std::path::PathBuf;
 use url::Url;
+use sim1h::ghost_actor::SimGhostActor;
 
 use std::time::{Duration, UNIX_EPOCH};
 use structopt::StructOpt;
@@ -33,10 +28,11 @@ struct Opt {
 }
 use lib3h_tracing::Lib3hSpan;
 
-fn engine_builder() -> GhostEngine<'static> {
+#[allow(dead_code)]
+fn engine_builder(netname: String) -> GhostEngine<'static> {
     let crypto = Box::new(SodiumCryptoSystem::new());
     let config = EngineConfig {
-        transport_configs: vec![TransportConfig::Memory],
+        transport_configs: vec![TransportConfig::Memory(netname)],
         bootstrap_nodes: vec![],
         work_dir: PathBuf::new(),
         log_level: 'd',
@@ -56,6 +52,10 @@ fn engine_builder() -> GhostEngine<'static> {
     .unwrap()
 }
 
+fn sim1h_engine_builder(_: String) -> SimGhostActor {
+    SimGhostActor::new("sup".to_string())
+}
+
 fn main() {
     let opt = Opt::from_args();
 
@@ -68,7 +68,8 @@ fn main() {
 
     let rl_t = rl.clone();
     let mut cli = lib3h_simchat::Lib3hSimChat::new(
-        engine_builder,
+        "cli-simchat".to_string(),
+        sim1h_engine_builder,
         Box::new(move |event| {
             match event {
                 ChatEvent::JoinSuccess { channel_id, .. } => {

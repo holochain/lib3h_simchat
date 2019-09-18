@@ -82,7 +82,7 @@ impl
 }
 
 impl MockEngine<'_> {
-    pub fn new() -> Self {
+    pub fn new(_netname: String) -> Self {
         let (endpoint_parent, endpoint_self) = create_ghost_channel();
         Self {
             client_endpoint: Some(endpoint_parent),
@@ -95,13 +95,6 @@ impl MockEngine<'_> {
             // reciever: None,
         }
     }
-
-    // pub fn new_with_sender() -> (Self, crossbeam_channel::Sender<Lib3hToClient>) {
-    //     let mut engine = MockEngine::new();
-    //     let (s, r)  = crossbeam_channel::unbounded();
-    //     engine.reciever = Some(r);
-    //     (engine, s)
-    // }
 
     /// Process any Client events or requests
     fn handle_msg_from_client(&mut self, mut msg: ClientToLib3hMessage) -> Result<(), GhostError> {
