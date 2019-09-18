@@ -2,7 +2,6 @@ use lib3h_tracing::test_span;
 
 use crate::lib3h_simchat::{current_timeanchor, send_sys_message};
 use lib3h_protocol::protocol::{Lib3hToClient, Lib3hToClientResponse};
-
 use super::{channel_address_from_string, current_timestamp, Lib3hSimChatState};
 use crate::simchat::{ChatEvent, MessageList, OpaqueConvertable, SimChatMessage};
 use lib3h::error::Lib3hError;
@@ -13,7 +12,7 @@ use lib3h_protocol::{
 };
 
 use lib3h_zombie_actor::{
-    GhostCallback, GhostCallbackData::Response, GhostCanTrack, GhostContextEndpoint, GhostResult,
+    GhostCallback, GhostCallbackData::{Response, Timeout}, GhostCanTrack, GhostContextEndpoint, GhostResult,
 };
 
 pub struct Lib3hEventAndCallback {
@@ -258,11 +257,28 @@ pub fn handle_chat_event(
             Some(Lib3hEventAndCallback::new(
                 ClientToLib3h::Bootstrap(boostrap_data),
                 Box::new(move |_, callback_data| {
-                    if let Response(Ok(ClientToLib3hResponse::BootstrapSuccess)) = callback_data {
-                        send_sys_message(
-                            chat_event_sender,
-                            &format!("Bootstrap success via {}", peer_uri),
-                        );
+                    match callback_data {
+                        Response(Ok(ClientToLib3hResponse::BootstrapSuccess)) => {
+                            send_sys_message(
+                                chat_event_sender,
+                                &format!("Bootstrap success via {}", peer_uri),
+                            );
+                        },
+                        Response(Err(e)) => {
+                            send_sys_message(
+                                chat_event_sender,
+                                &format!("Bootstrap Failed: {}", e),
+                            );                        
+                        },
+                        Timeout => {
+                            send_sys_message(
+                                chat_event_sender,
+                                &format!("Bootstrap request timed out"),
+                            );    
+                        },
+                        _ => {
+                            panic!("received unexpected response in boostrap callback")
+                        }
                     }
                     Ok(())
                 }),

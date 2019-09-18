@@ -25,7 +25,9 @@ lib3h_zombie_actor = { "git" = "https://github.com/holochain/lib3h", branch = "s
 lib3h_tracing = { "git" = "https://github.com/holochain/lib3h", branch = "simchat-integration" }
 detach = { "git" = "https://github.com/holochain/lib3h", branch = "simchat-integration" }
 
-sim1h = { "git" = "https://github.com/holochain/sim1h", branch = "master" }
+# sim1h = { "git" = "https://github.com/holochain/sim1h", rev = "a4d00e0ae333adb7243137da769b99d627ddd62d" }
+sim1h = { "path" = "../sim1h/crates/sim1h" }
+
 
 url = "=1.7.2"
 lazy_static = "=1.2.0"

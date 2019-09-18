@@ -52,8 +52,9 @@ fn engine_builder(netname: String) -> GhostEngine<'static> {
     .unwrap()
 }
 
+#[allow(dead_code)]
 fn sim1h_engine_builder(_: String) -> SimGhostActor {
-    SimGhostActor::new("sup".to_string())
+    SimGhostActor::new(&"http://localhost:8000".to_string())
 }
 
 fn main() {
@@ -118,7 +119,7 @@ fn main() {
                 }
                 _ => {}
             }
-            // writeln!(rl_t, "SIMCHAT GOT {:?}", event).expect("write fail");
+            writeln!(rl_t, "SIMCHAT GOT {:?}", event).expect("write fail");
         }),
         opt.bootstrap_nodes,
     );
