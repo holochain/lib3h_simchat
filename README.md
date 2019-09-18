@@ -9,7 +9,7 @@
 
 ## Overview
 
-Lib3h simulation test framework.
+SimChat is an IRC style chat application that is entirely peer-to-peer. Its main purpose is as a driver for the Lib3h crate for integration testing purposes.
 
 ## Contribute
 
