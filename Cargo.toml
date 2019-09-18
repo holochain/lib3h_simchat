@@ -1,5 +1,5 @@
 [package]
-name = "lib3h_sim_chat"
+name = "lib3h_simchat"
 version = "0.0.10"
 authors = ["Holochain Core Dev Team <devcore@holochain.org>"]
 edition = "2018"
@@ -16,13 +16,13 @@ crossbeam-channel = "=0.3.8"
 linefeed = "=0.6.0"
 base64 = "=0.10.1"
 regex = "=1.1.2"
-lib3h_protocol = { "git" = "https://github.com/holochain/lib3h", rev = "456af949d0477f4815f34efc1b084aaf91b549a9" }
-lib3h_sodium = { "git" = "https://github.com/holochain/lib3h", rev = "456af949d0477f4815f34efc1b084aaf91b549a9" }
-lib3h_crypto_api = { "git" = "https://github.com/holochain/lib3h", rev = "456af949d0477f4815f34efc1b084aaf91b549a9" }
-lib3h = { "git" = "https://github.com/holochain/lib3h", rev = "456af949d0477f4815f34efc1b084aaf91b549a9" }
-lib3h_zombie_actor = { "git" = "https://github.com/holochain/lib3h", rev = "456af949d0477f4815f34efc1b084aaf91b549a9" }
-lib3h_tracing = { "git" = "https://github.com/holochain/lib3h", rev = "456af949d0477f4815f34efc1b084aaf91b549a9" }
-detach = { "git" = "https://github.com/holochain/lib3h", rev = "456af949d0477f4815f34efc1b084aaf91b549a9" }
+lib3h_protocol = { "git" = "https://github.com/holochain/lib3h", branch = "simchat-integration" }
+lib3h_sodium = { "git" = "https://github.com/holochain/lib3h", branch = "simchat-integration" }
+lib3h_crypto_api = { "git" = "https://github.com/holochain/lib3h", branch = "simchat-integration" }
+lib3h = { "git" = "https://github.com/holochain/lib3h", branch = "simchat-integration" }
+lib3h_zombie_actor = { "git" = "https://github.com/holochain/lib3h", branch = "simchat-integration" }
+lib3h_tracing = { "git" = "https://github.com/holochain/lib3h", branch = "simchat-integration" }
+detach = { "git" = "https://github.com/holochain/lib3h", branch = "simchat-integration" }
 url = "=1.7.2"
 lazy_static = "=1.2.0"
 serde = "=1.0.89"

@@ -379,9 +379,9 @@ mod tests {
             chat_messages,
             vec![
                 join_event(),
-                join_success_event(),
-                receive_sys_message("You joined the channel: test_channel".to_string()),
                 part_event(),
+                receive_sys_message("You joined the channel: test_channel".to_string()),
+                join_success_event(),
                 part_success_event(),
             ],
         );
