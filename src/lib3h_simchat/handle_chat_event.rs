@@ -1,4 +1,4 @@
-use lib3h_tracing::test_span;
+use holochain_tracing::test_span;
 
 use crate::lib3h_simchat::{current_timeanchor, send_sys_message};
 use lib3h_protocol::protocol::{Lib3hToClient, Lib3hToClientResponse};

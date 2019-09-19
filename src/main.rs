@@ -15,7 +15,7 @@ use regex::Regex;
 use std::path::PathBuf;
 use url::Url;
 use sim1h::ghost_actor::SimGhostActor;
-
+use holochain_tracing::HSpan;
 use std::time::{Duration, UNIX_EPOCH};
 use structopt::StructOpt;
 
@@ -26,7 +26,6 @@ struct Opt {
     #[structopt(short = "b", long)]
     bootstrap_nodes: Vec<Url>,
 }
-use lib3h_tracing::Lib3hSpan;
 
 #[allow(dead_code)]
 fn engine_builder(netname: String) -> GhostEngine<'static> {
@@ -40,10 +39,14 @@ fn engine_builder(netname: String) -> GhostEngine<'static> {
         dht_gossip_interval: 100,
         dht_timeout_threshold: 1000,
         dht_custom_config: vec![],
+        network_id: lib3h::engine::GatewayId{
+            nickname: String::from("dont-care"),
+            id: lib3h_protocol::Address::from("still-dont-care")
+        },
     };
     let dht_factory = MirrorDht::new_with_config;
     GhostEngine::new(
-        Lib3hSpan::fixme(), // TODO: actually hook up real tracer here
+        HSpan::fixme(), // TODO: actually hook up real tracer here
         crypto,
         config,
         "test_engine",
