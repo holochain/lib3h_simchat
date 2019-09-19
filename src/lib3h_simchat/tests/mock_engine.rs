@@ -82,6 +82,7 @@ impl
 }
 
 impl MockEngine<'_> {
+    #[allow(dead_code)]
     pub fn new(_netname: String) -> Self {
         let (endpoint_parent, endpoint_self) = create_ghost_channel();
         Self {

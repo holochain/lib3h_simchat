@@ -265,9 +265,15 @@ mod tests {
 
     use super::*;
     use crate::simchat::SimChatMessage;
+    use sim1h::ghost_actor::SimGhostActor;
+
+    #[allow(dead_code)]
+    fn sim1h_engine_builder(_: String) -> SimGhostActor {
+        SimGhostActor::new(&"http://localhost:8000".to_string())
+    }
 
     fn new_sim_chat_mock_engine(netname: String, callback: HandleEvent) -> Lib3hSimChat {
-        Lib3hSimChat::new(netname, mock_engine::MockEngine::new, callback, vec![])
+        Lib3hSimChat::new(netname, sim1h_engine_builder, callback, vec![])
     }
 
     /*----------  example messages  ----------*/

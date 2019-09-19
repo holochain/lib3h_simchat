@@ -56,7 +56,7 @@ fn engine_builder(netname: String) -> GhostEngine<'static> {
 }
 
 #[allow(dead_code)]
-fn sim1h_engine_builder(_: String) -> SimGhostActor {
+pub fn sim1h_engine_builder(_: String) -> SimGhostActor {
     SimGhostActor::new(&"http://localhost:8000".to_string())
 }
 
