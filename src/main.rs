@@ -8,8 +8,9 @@ use chrono::prelude::DateTime;
 use colored::*;
 use lib3h::{
     dht::mirror_dht::MirrorDht,
-    engine::{EngineConfig, GhostEngine, TransportConfig},
+    engine::{EngineConfig, GhostEngine, TransportConfig, GatewayId},
 };
+use lib3h_protocol::Address;
 use lib3h_sodium::SodiumCryptoSystem;
 use regex::Regex;
 use std::path::PathBuf;
@@ -26,12 +27,16 @@ struct Opt {
     #[structopt(short = "b", long)]
     bootstrap_nodes: Vec<Url>,
 }
-use lib3h_tracing::Lib3hSpan;
+use holochain_tracing::HSpan;
 
 #[allow(dead_code)]
 fn engine_builder(netname: String) -> GhostEngine<'static> {
     let crypto = Box::new(SodiumCryptoSystem::new());
     let config = EngineConfig {
+        network_id: GatewayId {
+            nickname: String::from("nickname"),
+            id: Address::from(netname.clone()),
+        },
         transport_configs: vec![TransportConfig::Memory(netname)],
         bootstrap_nodes: vec![],
         work_dir: PathBuf::new(),
@@ -43,7 +48,7 @@ fn engine_builder(netname: String) -> GhostEngine<'static> {
     };
     let dht_factory = MirrorDht::new_with_config;
     GhostEngine::new(
-        Lib3hSpan::fixme(), // TODO: actually hook up real tracer here
+        HSpan::fixme(), // TODO: actually hook up real tracer here
         crypto,
         config,
         "test_engine",
@@ -53,7 +58,7 @@ fn engine_builder(netname: String) -> GhostEngine<'static> {
 }
 
 fn sim1h_engine_builder(_: String) -> SimGhostActor {
-    SimGhostActor::new("sup".to_string())
+    SimGhostActor::new(&"sup".to_string())
 }
 
 fn main() {

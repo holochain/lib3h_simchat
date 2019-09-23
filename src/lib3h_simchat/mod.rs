@@ -13,7 +13,6 @@ use lib3h_protocol::{
     Address,
 };
 use lib3h_sodium::{hash, secbuf::SecBuf};
-// use lib3h_tracing::test_span;
 use lib3h_zombie_actor::{GhostActor, GhostCanTrack, GhostContextEndpoint};
 use store::{Store, StoreEntryList};
 

@@ -3,7 +3,7 @@ use lib3h_protocol::{
     Address,
 };
 use serde::{de::DeserializeOwned, Serialize};
-use serde_derive::{Deserialize, Serialize};
+use serde_derive::{Deserialize};
 use serde_json::{from_slice, to_vec};
 use std::{
     collections::hash_map::DefaultHasher,
